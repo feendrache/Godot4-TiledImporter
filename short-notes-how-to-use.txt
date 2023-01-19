@@ -1,0 +1,5 @@
+- The Importer uses the Tiled FileExtension, so save your Files with *.tmx
+- Since Godot4 Tilemaps have Layers, the Layers from Tiled are imported into one Tilemap with Layers, you can find them in the Inspector of the Tilemap in Godot 4
+- The Tileset referenced in the Tiled Map need to be accessible by the Godot Project and reside inside the same project resources. Please be aware that Tiled sometimes creates realtive wild reference structures, so check there if the importer won't import
+
+- Sometimes it still requires more than one try to import a rather big tilemap. Godot may crash or freeze on import. And yeah i know it, but haven't figured out why it happens... 
