@@ -128,7 +128,7 @@ func create_tileset(sets_to_parse, path, options = {}):
 						set_counter = set_counter+1
 			i = i+1
 			gid = gid+1
-		#tileset.tile_size = tilesize
+		tileset.tile_size = tilesize
 		atlas_source.texture_region_size = tilesize
 		tileset.add_source(atlas_source)
 	
