@@ -1,0 +1,1 @@
+2023-01-31: Added an option to the tilemap importert. If you use different tilesizes in one tilemap the bigger tiles will be off, so you need to force the tilemap import to the base-tilesize during import and the positioning should be right.
