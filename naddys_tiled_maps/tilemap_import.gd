@@ -33,11 +33,38 @@ func _get_preset_name(preset_index):
 func _get_import_options(path, preset_index):
 	match preset_index:
 		Presets.DEFAULT:
-			return []
+			return [{
+				"name": "force_tilesize",
+				"default_value": false
+			},{
+				"name": "forced_size_x",
+				"default_value": 16
+			},{
+				"name": "forced_size_y",
+				"default_value": 16
+			}]
 		Presets.PIXEL_ART:
-			return []
+			return [{
+				"name": "force_tilesize",
+				"default_value": false
+			},{
+				"name": "forced_size_x",
+				"default_value": 16
+			},{
+				"name": "forced_size_y",
+				"default_value": 16
+			}]
 		_:
-			return []
+			return [{
+				"name": "force_tilesize",
+				"default_value": false
+			},{
+				"name": "forced_size_x",
+				"default_value": 16
+			},{
+				"name": "forced_size_y",
+				"default_value": 16
+			}]
 
 func _get_import_order():
 	return 99

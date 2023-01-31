@@ -19,7 +19,7 @@ func create_tileset(sets_to_parse, path, options = {}):
 		if "source" in set:
 			var source_path = path.get_base_dir().path_join(set.source)
 			set = xml_parser.read_tsx(source_path)
-			options = read_options(source_path)
+			options = read_options(source_path, options)
 			base_path = source_path
 			
 		var collision_physics_layer = 0
@@ -66,6 +66,9 @@ func create_tileset(sets_to_parse, path, options = {}):
 				c = 0
 			if atlas_source.get_tile_at_coords(tile_coords) == Vector2i(-1,-1):
 				atlas_source.create_tile(tile_coords)
+				if "force_tilesize" in options && options.force_tilesize:
+					var tile_data = atlas_source.get_tile_data(tile_coords,0)
+					tile_data.texture_offset = Vector2(options.forced_size.x/2,-options.forced_size.y/2)
 				if atlas_source.has_tile(tile_coords):
 					var flip_h = atlas_source.create_alternative_tile(tile_coords)
 					var flip_h_data = atlas_source.get_tile_data(tile_coords, flip_h)
@@ -128,7 +131,10 @@ func create_tileset(sets_to_parse, path, options = {}):
 						set_counter = set_counter+1
 			i = i+1
 			gid = gid+1
-		tileset.tile_size = tilesize
+		if "force_tilesize" in options && options.force_tilesize:
+			tileset.tile_size = options.forced_size
+		else:
+			tileset.tile_size = tilesize
 		atlas_source.texture_region_size = tilesize
 		tileset.add_source(atlas_source)
 	
@@ -150,8 +156,7 @@ func get_anim_separation(tile_data, columns):
 func get_image(path, file):
 	return load(path.path_join(file))
 
-func read_options(path):
-	var options = {}
+func read_options(path, options = {}):
 	var config := ConfigFile.new()
 	var err = config.load(path+".import")
 	if err != OK:

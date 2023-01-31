@@ -12,10 +12,13 @@ func create_from_file(path):
 	var parsed_data = xml_parser.read_tmx(path)
 	return create_tilemap(parsed_data, path)
 
-func create_tilemap(map_data, path):
+func create_tilemap(map_data, path, options = {}):
+	print("import tiled tilemap "+path.get_file().get_basename())
+	options = read_options(path)
+		
 	var tilemap = TileMap.new()
 	var tileset_creator = load("res://addons/naddys_tiled_maps/tileset_creator.gd").new()
-	tilemap.tile_set = tileset_creator.create_tileset(map_data.tilesets, path)
+	tilemap.tile_set = tileset_creator.create_tileset(map_data.tilesets, path, options)
 	
 	var width = map_data.width
 	var height = map_data.height
@@ -26,7 +29,8 @@ func create_tilemap(map_data, path):
 	tilemap.set_name(path.get_file().get_basename())
 	tilemap.cell_quadrant_size = int(map_data.tilewidth)
 	tilemap.remove_layer(0)
-	var layer_counter = 0	
+	
+	var layer_counter = 0
 	for layer in map_data.layers:
 		#if layer_counter > 1: continue
 		var visible = true 
@@ -238,3 +242,13 @@ func get_cell_coord(cell, width, height, tileset_data, base_length, xs:int = 0, 
 		r_changer = tileset_data.tileheight / base_length / 2
 	
 	return Vector2i(coord.x + c_changer, coord.y - r_changer)
+
+func read_options(path, options = {}):
+	var config := ConfigFile.new()
+	var err = config.load(path+".import")
+	if err != OK:
+		printerr("Import File for TMX missing, please import the base tileset file again")
+	else:
+		options["force_tilesize"] = config.get_value("params","force_tilesize",false)
+		options["forced_size"] = Vector2(config.get_value("params", "forced_size_x", 16),config.get_value("params", "forced_size_y", 16))
+	return options
