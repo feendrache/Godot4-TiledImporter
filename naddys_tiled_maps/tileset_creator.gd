@@ -66,9 +66,9 @@ func create_tileset(sets_to_parse, path, options = {}):
 				c = 0
 			if atlas_source.get_tile_at_coords(tile_coords) == Vector2i(-1,-1):
 				atlas_source.create_tile(tile_coords)
-				if "force_tilesize" in options && options.force_tilesize:
+				if "force_tilesize" in options && options.force_tilesize && options.forced_size != Vector2(tilesize):
 					var tile_data = atlas_source.get_tile_data(tile_coords,0)
-					tile_data.texture_offset = Vector2(options.forced_size.x/2,-options.forced_size.y/2)
+					tile_data.texture_origin = Vector2(options.forced_size.x/2,-options.forced_size.y/2)
 				if atlas_source.has_tile(tile_coords):
 					var flip_h = atlas_source.create_alternative_tile(tile_coords)
 					var flip_h_data = atlas_source.get_tile_data(tile_coords, flip_h)
