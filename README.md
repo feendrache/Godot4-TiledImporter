@@ -1,5 +1,7 @@
 # Godot4-TiledImporter
-Import Tiled Maps into Godot 4
+Import Tiled Maps into Godot 4 
+
+**Use Beta 17+ to have it import correctly**
 
 Currently in Alpha State
 
