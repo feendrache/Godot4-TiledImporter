@@ -78,13 +78,17 @@ func _import(source_file, save_path, options, platform_variants, gen_files):
 	if !FileAccess.file_exists(source_file):
 		return "No File found"
 	
-	var tilemap_creator = load("res://addons/naddys_tiled_maps/tilemap_creator.gd").new()
-	var tilemap = tilemap_creator.create_from_file(source_file)
-	if typeof(tilemap) != TYPE_OBJECT:
-		# Error happened
-		#print(tilemap)
-		return tilemap
-	#print (tilemap)
-	var packed_scene = PackedScene.new()
-	packed_scene.pack(tilemap)
-	return ResourceSaver.save(packed_scene, "%s.%s" % [save_path, _get_save_extension()])
+	var tilemap_creator_l = load("res://addons/naddys_tiled_maps/tilemap_creator.gd")
+	if tilemap_creator_l != null:
+		var tilemap_creator = tilemap_creator_l.new()
+		var tilemap = tilemap_creator.create_from_file(source_file)
+		if typeof(tilemap) != TYPE_OBJECT:
+			# Error happened
+			#print(tilemap)
+			return tilemap
+		#print (tilemap)
+		var packed_scene = PackedScene.new()
+		packed_scene.pack(tilemap)
+		return ResourceSaver.save(packed_scene, "%s.%s" % [save_path, _get_save_extension()])
+	else:
+		return "Tilemap Creator couldn't be loaded correctly, you may need to reimport the tilemap "+source_file
