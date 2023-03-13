@@ -1,6 +1,9 @@
 # Godot4-TiledImporter
 Import Tiled Maps into Godot 4 
 
+I want to point you to this importer: https://github.com/Kiamo2/YATI wich is worked on as well. It provides more options and works too. 
+I will work on this importer when i need stuff for my game, since it really is tailored to my needs, but the updates will not be regular.
+
 **Use Beta 17+ to have it import correctly**
 
 Currently in Alpha State
